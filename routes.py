@@ -1,3 +1,4 @@
+from flask import render_template
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from sqlalchemy.exc import SQLAlchemyError
@@ -5,14 +6,16 @@ from db import db
 from models import EmployeeModel
 from schemas import EmployeeSchema, EmployeeCreateOrUpdateSchema
 
-blp = Blueprint("Employees", __name__)
+blp = Blueprint("Employees", __name__, url_prefix='/employees')
 
 
-@blp.route("/employee/<int:employee_id>")
+@blp.route("/<int:employee_id>")
 class Employee(MethodView):
-    @blp.response(200, EmployeeSchema)
+    # @blp.response(200, EmployeeSchema)
     def get(self, employee_id):
-        return EmployeeModel.query.get_or_404(employee_id)
+        employee = EmployeeModel.query.get_or_404(employee_id)
+        # return employee
+        return render_template('detail.html', name=employee.name, position=employee.position)
 
     @blp.response(204)
     def delete(self, employee_id):
@@ -30,14 +33,16 @@ class Employee(MethodView):
         db.session.commit()
 
 
-@blp.route("/employees")
+@blp.route("/")
 class GetEmployees(MethodView):
-    @blp.response(200, EmployeeSchema(many=True))
+    # @blp.response(200, EmployeeSchema(many=True))
     def get(self):
-        return EmployeeModel.query.all()
+        employees = EmployeeModel.query.all()
+        # return employees
+        return render_template('list.html', employees=employees)
 
 
-@blp.route("/employee")
+@blp.route("/")
 class CreateEmployee(MethodView):
     @blp.arguments(EmployeeCreateOrUpdateSchema)
     @blp.response(201, EmployeeSchema)

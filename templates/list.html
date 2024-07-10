@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Employee</title>
+</head>
+<title>Employee</title>
+<body>
+<h1>Employees list</h1>
+<ul>
+    {% for employee in employees %}
+    <li>
+        <em>{{ employee.id }}:</em> <a href="/employees/{{ employee.id }}">{{ employee.name }}</a>
+    </li>
+  {% endfor %}
+</ul>
+</body>
+</html>

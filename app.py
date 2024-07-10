@@ -18,6 +18,8 @@ def create_app():
 
     app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:postgres@localhost:5430/ss_web_course"
 
+    app.register_error_handler(404, lambda error: ('bad request!', 404))
+
     db.init_app(app)
 
     api = Api(app)
