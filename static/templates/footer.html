@@ -1,0 +1,17 @@
+<div class="hidden modal" id="modal{{ id }}">
+    <div class="modal-content">
+        <label>Name
+            <input name="name" id="input-name{{ id }}"/>
+        </label>
+        <label>Position
+            <input name="position" id="input-position{{ id }}"/>
+        </label>
+        <p>
+        <button type="button" class="gray" onclick="closeEditModal({{ id }})">Cancel</button>
+        <button type="button" onclick="saveEmployee({{ id }})">Save</button>
+        </p>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='scripts/main.js') }}"></script>
+</body>
+</html>

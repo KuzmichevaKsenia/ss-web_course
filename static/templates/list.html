@@ -1,0 +1,27 @@
+{% include "header.html" %}
+<h1>Employees list</h1>
+<div class="right">
+    <button type="button" onclick="openEditModal()">+</button>
+</div>
+<div>
+    <ol>
+        {% for employee in employees %}
+            <li id="emp-{{ employee.id }}">
+                <a href="/employees/{{ employee.id }}">{{ employee.name }}</a>
+                <button type="button" class="red" onclick="deleteEmployee({{ employee.id }})">X</button>
+            </li>
+        {% endfor %}
+    </ol>
+</div>
+<script>
+    async function deleteEmployee(emp_id) {
+        let response = await fetch('/employees/' + emp_id, {method: 'DELETE'});
+        if (response.ok) {
+            let elem = document.getElementById("emp-" + emp_id);
+            elem.parentElement.removeChild(elem);
+        } else {
+            alert("Failed to delete employee :(");
+        }
+    }
+</script>
+{% include "footer.html" %}

@@ -1,0 +1,15 @@
+{% include "header.html" %}
+<h1>Employee info</h1>
+<p>
+    <a href="/employees">Back</a>
+</p>
+<div>
+    <div class="right">
+        <button type="button" onclick="openEditModal({{ id }})">Edit</button>
+    </div>
+    <div>
+        <p>Name: <em id="name-{{ id }}">{{ name }}</em></p>
+        <p>Position: <em id="position-{{ id }}">{{ position }}</p>
+    </div>
+</div>
+{% include "footer.html" %}

@@ -5,7 +5,7 @@ from routes import blp
 
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder="static", template_folder="static/templates")
 
     app.config["API_TITLE"] = "Employee CRUD Example"
     app.config["API_VERSION"] = "v1"

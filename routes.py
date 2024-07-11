@@ -15,7 +15,9 @@ class Employee(MethodView):
     def get(self, employee_id):
         employee = EmployeeModel.query.get_or_404(employee_id)
         # return employee
-        return render_template('detail.html', name=employee.name, position=employee.position)
+        return render_template(
+            'detail.html', id=employee_id, name=employee.name, position=employee.position
+        )
 
     @blp.response(204)
     def delete(self, employee_id):
