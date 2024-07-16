@@ -29,7 +29,7 @@ async function saveEmployee(emp_id = "") {
 
 async function updateEmployee(emp_id, new_name, new_position) {
     let response = await fetch(
-        '/employees/' + emp_id,
+        '/' + emp_id,
         {
             method: 'PUT',
             headers: {
@@ -52,7 +52,7 @@ async function updateEmployee(emp_id, new_name, new_position) {
 
 async function addEmployee(new_name, new_position) {
     let response = await fetch(
-        '/employees/',
+        '/',
         {
             method: 'POST',
             headers: {

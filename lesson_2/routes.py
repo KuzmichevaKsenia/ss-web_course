@@ -1,4 +1,3 @@
-from flask import render_template
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from sqlalchemy.exc import SQLAlchemyError
@@ -11,13 +10,10 @@ blp = Blueprint("Employees", __name__, url_prefix='/employees')
 
 @blp.route("/<int:employee_id>")
 class Employee(MethodView):
-    # @blp.response(200, EmployeeSchema)
+    @blp.response(200, EmployeeSchema)
     def get(self, employee_id):
         employee = EmployeeModel.query.get_or_404(employee_id)
-        # return employee
-        return render_template(
-            'detail.html', id=employee_id, name=employee.name, position=employee.position
-        )
+        return employee
 
     @blp.response(204)
     def delete(self, employee_id):
@@ -37,11 +33,10 @@ class Employee(MethodView):
 
 @blp.route("/")
 class GetEmployees(MethodView):
-    # @blp.response(200, EmployeeSchema(many=True))
+    @blp.response(200, EmployeeSchema(many=True))
     def get(self):
         employees = EmployeeModel.query.all()
-        # return employees
-        return render_template('list.html', employees=employees)
+        return employees
 
 
 @blp.route("/")

@@ -6,16 +6,16 @@
 <div>
     <ol>
         {% for employee in employees %}
-            <li id="emp-{{ employee.id }}">
-                <a href="/employees/{{ employee.id }}">{{ employee.name }}</a>
-                <button type="button" class="red" onclick="deleteEmployee({{ employee.id }})">X</button>
+            <li id="emp-{{ employee['id'] }}">
+                <a href="/{{ employee['id'] }}">{{ employee['name'] }}</a>
+                <button type="button" class="red" onclick="deleteEmployee({{ employee['id'] }})">X</button>
             </li>
         {% endfor %}
     </ol>
 </div>
 <script>
     async function deleteEmployee(emp_id) {
-        let response = await fetch('/employees/' + emp_id, {method: 'DELETE'});
+        let response = await fetch('/' + emp_id, {method: 'DELETE'});
         if (response.ok) {
             let elem = document.getElementById("emp-" + emp_id);
             elem.parentElement.removeChild(elem);
