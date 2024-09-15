@@ -7,7 +7,7 @@ app.register_error_handler(404, lambda error: ('bad request!', 404))
 
 @app.route("/")
 def get_list():
-    return render_template('list.html', employees=employees)
+    return render_template('list.html', employees=employees.values())
 
 
 @app.route("/<int:employee_id>")
@@ -20,7 +20,7 @@ def get(employee_id):
 
 @app.route("/<int:employee_id>", methods=["DELETE"])
 def delete(employee_id):
-    employees.pop(employee_id)
+    del employees[employee_id]
     return Response(status=204)
 
 
@@ -35,6 +35,6 @@ def put(employee_id):
 @app.route("/", methods=["POST"])
 def post():
     employee_data = request.json
-    employee_data["id"] = len(employees)
-    employees.append(employee_data)
+    employee_data["id"] = max(employees.keys()) + 1
+    employees[employee_data["id"]] = employee_data
     return employee_data
