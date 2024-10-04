@@ -35,6 +35,6 @@ def put(employee_id):
 @app.route("/", methods=["POST"])
 def post():
     employee_data = request.json
-    employee_data["id"] = max(employees.keys()) + 1
+    employee_data["id"] = max(employees.keys(), default=0) + 1
     employees[employee_data["id"]] = employee_data
     return employee_data
